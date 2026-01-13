@@ -1,0 +1,18 @@
+    <div class="app-container">
+      <header class="app-header">
+        <h1>♔ Real-Time Chess ♚</h1>
+        <p>Open two browser tabs to play against yourself locally</p>
+        <div class="connection-status" [class.connected]="isConnected" [class.disconnected]="!isConnected">
+          {{ isConnected ? 'Connected to server' : 'Disconnected' }}
+        </div>
+      </header>
+      
+      <main class="app-main">
+        <app-chess-board></app-chess-board>
+      </main>
+      
+      <footer class="app-footer">
+        <p>Angular 19 + Node.js + WebSocket | KISS Design Pattern</p>
+        <p>Open first tab and click "Join as Player 1", then open second tab and click "Join as Player 2"</p>
+      </footer>
+    </div>

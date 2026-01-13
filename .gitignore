@@ -1,0 +1,72 @@
+# ------------------------------
+# Node / TypeScript
+# ------------------------------
+
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+dist-*/       # sometimes Angular outputs with suffix
+out-tsc/      # TypeScript compiled files
+build/        # optional if backend has build folder
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ------------------------------
+# Angular frontend
+# ------------------------------
+
+# Angular build / compiled output
+dist/
+.angular/
+.angular/cache/
+
+# Angular temporary files
+*.tsbuildinfo
+
+# Angular CLI local config
+.angular.json
+
+# ------------------------------
+# TypeScript / temp
+# ------------------------------
+*.js
+*.d.ts
+*.js.map
+*.css.map
+
+# ------------------------------
+# Optional: coverage / tests
+# ------------------------------
+coverage/
+*.lcov
+
+# ------------------------------
+# Misc
+# ------------------------------
+*.bak
+*.swp

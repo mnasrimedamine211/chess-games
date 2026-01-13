@@ -1,0 +1,124 @@
+<div class="game-container">
+  <div class="game-info">
+    <h2>♔ Chess Game ♚</h2>
+    <div *ngIf="gameState">
+      <!-- Game status with icons -->
+      <p [class]="getStatusClass()">
+        <span class="status-icon">{{ getStatusIcon() }}</span>
+        {{ getStatusText() }}
+      </p>
+      
+      <p>Current Turn: 
+        <span [class.white-turn]="gameState.currentTurn === 'white'"
+              [class.black-turn]="gameState.currentTurn === 'black'">
+          {{ gameState.currentTurn | uppercase }}
+        </span>
+      </p>
+      
+      <!-- Check/Checkmate warnings -->
+      <div *ngIf="gameState.check && !gameState.checkmate" class="alert alert-check">
+        ⚠️ CHECK! {{ gameState.currentTurn === 'white' ? 'White' : 'Black' }} king is under attack!
+      </div>
+      
+      <div *ngIf="gameState.checkmate" class="alert alert-checkmate">
+        🏆 CHECKMATE! {{ gameState.winner === 'white' ? 'White' : 'Black' }} wins!
+      </div>
+      
+      <div *ngIf="gameState.stalemate" class="alert alert-stalemate">
+        🤝 STALEMATE! Game is a draw.
+      </div>
+      
+      <p>Players: {{ gameState.players.length }}/2</p>
+      <p *ngIf="currentPlayer">You are: 
+        <span [class.white-player]="currentPlayer.color === 'white'"
+              [class.black-player]="currentPlayer.color === 'black'">
+          {{ currentPlayer.color | uppercase }}
+        </span>
+      </p>
+      
+      <p *ngIf="gameState.currentTurn === currentPlayer?.color && gameState.status === 'playing'" 
+         class="your-turn">
+        ✅ It's your turn!
+      </p>
+    </div>
+    
+    <div *ngIf="!gameState" class="join-buttons">
+      <button class="join-btn white-btn" (click)="joinGame('Player 1')">
+        ♔ Join as White
+      </button>
+      <button class="join-btn black-btn" (click)="joinGame('Player 2')">
+        ♚ Join as Black
+      </button>
+    </div>
+    
+    <div *ngIf="selectedPiece" class="selected-info">
+      <h4>Selected Piece:</h4>
+      <p>{{ selectedPiece.piece.color | uppercase }} {{ selectedPiece.piece.type }}</p>
+      <p>Position: {{ getPositionLabel(selectedPiece.row, selectedPiece.col) }}</p>
+      <p>Valid moves: {{ validMoves.length }}</p>
+      <div class="valid-moves-list" *ngIf="validMoves.length > 0">
+        <small>Click green squares to move</small>
+      </div>
+    </div>
+  </div>
+  
+  <div class="chess-board-container">
+    <div class="chess-board">
+      <div *ngFor="let row of [0,1,2,3,4,5,6,7]; let rowIndex = index" class="board-row">
+        <div *ngFor="let col of [0,1,2,3,4,5,6,7]; let colIndex = index" 
+             class="board-cell"
+             [class.light]="(rowIndex + colIndex) % 2 === 0"
+             [class.dark]="(rowIndex + colIndex) % 2 === 1"
+             [class.valid-move]="isValidMoveTarget(rowIndex, colIndex)"
+             [class.selected]="isSelected(rowIndex, colIndex)"
+             [class.can-select]="canSelect(rowIndex, colIndex)"
+             (click)="onCellClick(rowIndex, colIndex)">
+          
+          <div class="cell-highlight"></div>
+          
+          <app-chess-piece 
+            *ngIf="getPiece(rowIndex, colIndex)"
+            [piece]="getPiece(rowIndex, colIndex)"
+            [isSelected]="isSelected(rowIndex, colIndex)"
+            [isValidMove]="isValidMoveTarget(rowIndex, colIndex)">
+          </app-chess-piece>
+          
+          <!-- Empty cell with dot for valid move -->
+          <div *ngIf="!getPiece(rowIndex, colIndex) && isValidMoveTarget(rowIndex, colIndex)" 
+               class="move-dot">
+            ●
+          </div>
+          
+          <div class="coordinates" *ngIf="rowIndex === 7">
+            {{ getColumnLetter(colIndex) }}
+          </div>
+          <div class="coordinates" *ngIf="colIndex === 0">
+            {{ 8 - rowIndex }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="chat-box">
+    <h3>💬 Game Chat</h3>
+    <div class="chat-messages">
+      <div *ngFor="let message of chatMessages" class="chat-message">
+        <span class="message-time">{{ message.time }}</span>
+        <span class="message-text">{{ message.text }}</span>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input #chatInput type="text" 
+             placeholder="Type a message...">
+      <button (click)="sendChat(chatInput.value); chatInput.value = ''">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Promotion Dialog -->
+<app-promotion-dialog 
+  [visible]="showPromotionDialog"
+  [pieceColor]="promotionColor"
+  (promotionSelected)="onPromotionSelected($event)">
+</app-promotion-dialog>

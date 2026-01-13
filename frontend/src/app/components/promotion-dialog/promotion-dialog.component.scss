@@ -1,0 +1,67 @@
+.promotion-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .promotion-dialog {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      text-align: center;
+      min-width: 300px;
+    }
+    
+    .promotion-dialog h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .promotion-dialog p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+    
+    .promotion-options {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .promotion-option {
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: #f8f9fa;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+    }
+    
+    .promotion-option:hover {
+      background: #e9ecef;
+      border-color: #007bff;
+      transform: translateY(-2px);
+    }
+    
+    .piece-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .promotion-option[data-piece="queen"] .piece-icon { color: #e83e8c; }
+    .promotion-option[data-piece="rook"] .piece-icon { color: #20c997; }
+    .promotion-option[data-piece="bishop"] .piece-icon { color: #17a2b8; }
+    .promotion-option[data-piece="knight"] .piece-icon { color: #6f42c1; }

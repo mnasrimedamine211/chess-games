@@ -1,0 +1,24 @@
+ <div class="promotion-overlay" *ngIf="visible">
+      <div class="promotion-dialog">
+        <h3>Pawn Promotion</h3>
+        <p>Choose a piece to promote your pawn to:</p>
+        <div class="promotion-options">
+          <button class="promotion-option" data-piece="queen" (click)="selectPromotion('queen')">
+            <span class="piece-icon">{{ getPieceIcon('queen') }}</span>
+            Queen
+          </button>
+          <button class="promotion-option" data-piece="rook" (click)="selectPromotion('rook')">
+            <span class="piece-icon">{{ getPieceIcon('rook') }}</span>
+            Rook
+          </button>
+          <button class="promotion-option" data-piece="bishop" (click)="selectPromotion('bishop')">
+            <span class="piece-icon">{{ getPieceIcon('bishop') }}</span>
+            Bishop
+          </button>
+          <button class="promotion-option" data-piece="knight" (click)="selectPromotion('knight')">
+            <span class="piece-icon">{{ getPieceIcon('knight') }}</span>
+            Knight
+          </button>
+        </div>
+      </div>
+    </div>

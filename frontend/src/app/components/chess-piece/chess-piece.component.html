@@ -1,0 +1,7 @@
+    <div class="chess-piece" 
+         [class.selected]="isSelected" 
+         [class.white]="piece?.color === 'white'" 
+         [class.black]="piece?.color === 'black'"
+         [class.valid-move]="isValidMove">
+      <span class="piece-icon">{{ getPieceIcon() }}</span>
+    </div>
